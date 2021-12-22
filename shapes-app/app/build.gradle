@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.protobuf'
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.17.2"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.42.1'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java { option 'lite' }
+            }
+            task.plugins {
+                grpc { option 'lite' }
+            }
+        }
+    }
+}
+
+android {
+    compileSdkVersion 31
+    defaultConfig {
+        applicationId "io.approov.shapes"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode  3
+        versionName "3.0"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles.add(file("proguard-rules.pro"))
+        }
+    }
+    packagingOptions {
+        exclude "META-INF/notice.txt"
+        exclude "META-INF/license.txt"
+    }
+    android {
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+
+    // version must match io.grpc:protoc-gen-grpc-java:1.42.1 above
+    implementation 'io.grpc:grpc-okhttp:1.42.1'
+    implementation 'io.grpc:grpc-protobuf-lite:1.42.1'
+    implementation 'io.grpc:grpc-stub:1.42.1'
+
+    implementation 'javax.annotation:javax.annotation-api:1.2'
+
+    // *** UNCOMMENT THE LINE BELOW FOR APPROOV ***
+    // implementation 'com.github.approov:approov-service-android-java-grpc:main-SNAPSHOT'
+}
