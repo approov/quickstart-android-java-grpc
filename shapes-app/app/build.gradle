@@ -7,7 +7,7 @@ protobuf {
     }
     plugins {
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.42.1'
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.43.2'
         }
     }
     generateProtoTasks {
@@ -55,10 +55,10 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
 
-    // version must match io.grpc:protoc-gen-grpc-java:1.42.1 above
-    implementation 'io.grpc:grpc-okhttp:1.42.1'
-    implementation 'io.grpc:grpc-protobuf-lite:1.42.1'
-    implementation 'io.grpc:grpc-stub:1.42.1'
+    // version must match io.grpc:protoc-gen-grpc-java:1.43.2 above
+    implementation 'io.grpc:grpc-okhttp:1.43.2'
+    implementation 'io.grpc:grpc-protobuf-lite:1.43.2'
+    implementation 'io.grpc:grpc-stub:1.43.2'
 
     implementation 'javax.annotation:javax.annotation-api:1.2'
 
