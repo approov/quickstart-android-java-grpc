@@ -40,6 +40,12 @@ public class MainActivity extends Activity {
     private ImageView statusImageView = null;
     private TextView statusTextView = null;
 
+    // API key for grpc.shapes.approov.io:50051
+    private String apiKeyHeaderName = "Api-Key"
+    private String apiSecretKey = "yXClypapWNHIifHUWmBIyPFAm"
+    // *** UNCOMMENT THE LINE BELOW FOR APPROOV SECRETS PROTECTION (and comment the line above) ***
+    // private String apiSecretKey = "shapes_api_key_placeholder"
+
     private int getImageID(String imageName) {
         switch (imageName) {
             case "Circle":
@@ -77,6 +83,9 @@ public class MainActivity extends Activity {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).build();
         // *** UNCOMMENT THE LINE BELOW FOR APPROOV (and comment the line above) ***
         // ManagedChannel channel = ApproovChannelBuilder.forAddress(host, port).build();
+
+        // *** UNCOMMENT THE LINE BELOW FOR APPROOV SECRETS PROTECTION
+        ApproovService.addSubstitutionHeader("apiKeyHeaderName", null);
 
        // handle connection check
        connectivityCheckButton.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +170,9 @@ public class MainActivity extends Activity {
 
                         // Make fetch shape call
                         ShapeReply response = stub.shape(request);
+                        // *** UNCOMMENT THIS LINE FOR APPROOV WITH API PROTECTION (and comment the line above) *** */
+                        // ShapeReply response = stub.approovShape(request);
+
                         // Set result
                         msg = response.getMessage();
                         imgId = getImageID(response.getMessage());
