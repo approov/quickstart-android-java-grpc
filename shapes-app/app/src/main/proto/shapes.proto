@@ -30,8 +30,10 @@ package shapes;
 service Shape {
     // Sends a hello, requesting a "hello" response.
     rpc Hello (HelloRequest) returns (HelloReply) {}
-    // Sends a shape request
+    // Sends a shape request where the GRPC server requires an API key
     rpc Shape (ShapeRequest) returns (ShapeReply) {}
+    // Sends a shape request, where the GRPC server requires an Approov token in addition to the API key
+    rpc ApproovShape (ApproovShapeRequest) returns (ShapeReply) {}
 }
 
 // The hello request message
@@ -52,5 +54,11 @@ message ShapeRequest {
 // The shape response message containing the name of the shape.
 message ShapeReply {
   string message = 1;
+}
+
+// The Approov shape request message where the server will check for a valid Approov token in the request's headers
+// before returning a result
+message ApproovShapeRequest {
+  string dummy = 1;
 }
 

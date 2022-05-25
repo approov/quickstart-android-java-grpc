@@ -1,4 +1,3 @@
-// Main activity for Approov Shapes App Demo (using GRPC-Java)
 //
 // MIT License
 //
@@ -41,10 +40,10 @@ public class MainActivity extends Activity {
     private TextView statusTextView = null;
 
     // API key for grpc.shapes.approov.io:50051
-    private String apiKeyHeaderName = "Api-Key"
-    private String apiSecretKey = "yXClypapWNHIifHUWmBIyPFAm"
+    private String apiKeyHeaderName = "Api-Key";
+    private String apiSecretKey = "yXClypapWNHIifHUWmBIyPFAm";
     // *** UNCOMMENT THE LINE BELOW FOR APPROOV SECRETS PROTECTION (and comment the line above) ***
-    // private String apiSecretKey = "shapes_api_key_placeholder"
+    // private String apiSecretKey = "shapes_api_key_placeholder";
 
     private int getImageID(String imageName) {
         switch (imageName) {
@@ -85,7 +84,7 @@ public class MainActivity extends Activity {
         // ManagedChannel channel = ApproovChannelBuilder.forAddress(host, port).build();
 
         // *** UNCOMMENT THE LINE BELOW FOR APPROOV SECRETS PROTECTION
-        ApproovService.addSubstitutionHeader("apiKeyHeaderName", null);
+        // ApproovService.addSubstitutionHeader("apiKeyHeaderName", null);
 
        // handle connection check
        connectivityCheckButton.setOnClickListener(new View.OnClickListener() {
@@ -162,16 +161,15 @@ public class MainActivity extends Activity {
                     try {
                         // Get calling stub
                         ShapeGrpc.ShapeBlockingStub stub = ShapeGrpc.newBlockingStub(channel);
-                        // *** UNCOMMENT THE LINE BELOW FOR APPROOV ***
-                        // stub = stub.withInterceptors(new ApproovClientInterceptor(channel));
-
-                        // Build shape request
-                        ShapeRequest request = ShapeRequest.newBuilder().build();
+                        APIKeyClientInterceptor apiKeyAddingClientInterceptor = new APIKeyClientInterceptor(apiKeyHeaderName, apiSecretKey);
+                        stub = stub.withInterceptors(apiKeyAddingClientInterceptor);
+                        // *** UNCOMMENT THE LINE BELOW FOR APPROOV (and comment the line above) ***
+                        // stub = stub.withInterceptors(apiKeyAddingClientInterceptor, new ApproovClientInterceptor(channel));
 
                         // Make fetch shape call
-                        ShapeReply response = stub.shape(request);
+                        ShapeReply response = stub.shape(ShapeRequest.newBuilder().build());
                         // *** UNCOMMENT THIS LINE FOR APPROOV WITH API PROTECTION (and comment the line above) *** */
-                        // ShapeReply response = stub.approovShape(request);
+                        // ShapeReply response = stub.approovShape(ApproovShapeRequest.newBuilder().build());
 
                         // Set result
                         msg = response.getMessage();
