@@ -38,7 +38,7 @@ The subsequent steps of this guide show you how to provide better protection, ei
 
 ## ADD THE APPROOV DEPENDENCY
 
-The Approov integration is available via [`jitpack`](https://jitpack.io). This allows inclusion into the project by simply specifying a dependency in the `gradle` files for the app. Firstly, `jitpack` needs to be added to the `repositories` section in the `build.gradle` file at the top level of the project by uncommenting line 23:
+The Approov integration is available via [`jitpack`](https://jitpack.io). This allows inclusion into the project by simply specifying a dependency in the `gradle` files for the app. Firstly, `jitpack` needs to be added to the `repositories` section in the `build.gradle` file at the top level of the project by uncommenting line 24:
 
 ```
 maven { url 'https://jitpack.io' }
@@ -70,11 +70,11 @@ Tokens for this domain will be automatically signed with the specific secret for
 
 ## MODIFY THE APP TO USE APPROOV
 
-Uncomment the `ApproovService` import and the initialization call in `io/approov/shapes/ShapesApp.java` at lines 24 and 33, respectively:
+Uncomment the `ApproovService` import and the initialization call in `io/approov/shapes/ShapesApp.java` at lines 23 and 32, respectively:
 
 ![Approov Initialization](readme-images/approov-init-code.png)
 
-This initializes Approov when the app is first created. The Approov SDK needs a configuration string to identify the account associated with the app. It will have been provided in the Approov onboarding email (it will be something like `#123456#K/XPlLtfcwnWkzv99Wj5VmAxo4CrU267J1KlQyoz8Qo=`). Copy this into `io/approov/shapes/ShapesApp.java:36`, replacing the text `<enter-your-config-string-here>`.
+This initializes Approov when the app is first created. The Approov SDK needs a configuration string to identify the account associated with the app. It will have been provided in the Approov onboarding email (it will be something like `#123456#K/XPlLtfcwnWkzv99Wj5VmAxo4CrU267J1KlQyoz8Qo=`). Copy this into `io/approov/shapes/ShapesApp.java`, replacing the text `<enter-your-config-string-here>`.
 
 The configuration string can also be obtained by issuing this Approov CLI command:
 
@@ -82,32 +82,27 @@ The configuration string can also be obtained by issuing this Approov CLI comman
 approov sdk -getConfigString
 ```
 
-Next we need to use Approov when we make a request for a shape. A few lines of code need to be changed in the file `io/approov/shapes/MainActivity.java`. Uncomment the imports of `ApproovChannelBuilder` and `ApproovClientInterceptor` in lines 31 and 32:
+Next we need to use Approov when we make a request for a shape. A few lines of code need to be changed in the file `io/approov/shapes/MainActivity.java`. Uncomment the imports of `ApproovChannelBuilder`, `ApproovClientInterceptor` and `ApproovService` in lines 30-32:
 
 ![Approov Import](readme-images/approov-import.png)
 
-Line 77 needs to be commented out and line 79 needs to be uncommented:
+Line 83 needs to be commented out and line 85 needs to be uncommented:
 
 ![Approov Pin](readme-images/approov-pin.png)
 
-This creates a channel as normal, but also pins the connection to the endpoint to ensure that no Man-in-the-Middle can eavesdrop on any communication being made.
+This creates a channel as normal, but also pins the connection to the server to ensure that no Man-in-the-Middle can eavesdrop on any communication being made.
 
-Line 157 needs to be uncommented:
+Comment out line 166 and uncomment lines 168, 169 to add an `ApproovClientInterceptor` to the calling stub:
 
-![Approov Fetch](readme-images/approov-fetch.png)
+![Approov Interceptor](readme-images/approov-interceptor.png)
 
-We add an `ApproovClientInterceptor` to the calling stub. The interceptor automatically fetches an Approov token and adds it as a header to any GRPC request made and may also substitute header values to hold secure string secrets.
+The interceptor automatically fetches an Approov token and adds it as a header to any GRPC request made and may also substitute header values to hold secure string secrets.
 
 Note that this interceptor may cancel a request (with an `ApproovException` as the error) if it is unable to fetch an Approov token. If this is due to no or poor Internet connectivity then the exception is an `ApproovNetworkException`. In this case the user should be able to initiate a retry. During development a cancel may occur due to a misconfiguration, see [Token Fetch Errors](https://approov.io/docs/latest/approov-usage-documentation/#token-fetch-errors).
 
-You should also edit lines 163-165 of `MainActivity.java` to change to using the `approovShape` remote procedure call that checks the Approov token (as well as the API key built into the app):
+Finally, edit lines 172-174 of `MainActivity.java` to change to using the `approovShape` remote procedure call for which the server checks the Approov token (as well as the API key built into the app):
 
-```Java
-// Make fetch shape call
-// ShapeReply response = stub.shape(request);
-// *** UNCOMMENT THE LINE BELOW FOR APPROOV API PROTECTION (and comment the line above) ***
-ShapeReply response = stub.approovShape(request);
-```
+![Approov Fetch Shape](readme-images/approov-fetch.png)
 
 Run the app again to ensure that the `app-debug.apk` in the generated build outputs is up to date.
 
@@ -147,7 +142,7 @@ If you still don't get a valid shape then there are some things you can try. Rem
 
 ## SHAPES APP WITH SECRETS PROTECTION
 
-This section provides an illustration of an alternative option for Approov protection if you are not able to modify the backend to add an Approov Token check. Firstly, revert any previous change to `MainActivity.java`, lines 163-165 to using the `shape` GRPC that simply checks for an API key:
+This section provides an illustration of an alternative option for Approov protection if you are not able to modify the backend to add an Approov Token check. Firstly, revert any previous change to `MainActivity.java`, lines 172-174 to using the `shape` GRPC that simply checks for an API key:
 
 ```Java
 // Make fetch shape call
@@ -156,7 +151,7 @@ ShapeReply response = stub.shape(request);
 // ShapeReply response = stub.approovShape(request);
 ```
 
-The `shapes_api_key` should also be changed to `shapes_api_key_placeholder` at `MainActivity.java`, lines 45-47, removing the actual API key out of the code:
+The `shapes_api_key` should also be changed to `shapes_api_key_placeholder` at `MainActivity.java`, lines 46-47, removing the actual API key out of the code:
 
 ```Java
 // String apiSecretKey = "yXClypapWNHIifHUWmBIyPFAm";
@@ -179,7 +174,7 @@ approov secstrings -addKey shapes_api_key_placeholder -predefinedValue yXClypapW
 
 > Note that this command also requires an [admin role](https://approov.io/docs/latest/approov-usage-documentation/#account-access-roles).
 
-Next we need to inform Approov that it needs to substitute the placeholder value for the real API key on the `Api-Key` header. Only a single line of code needs to be changed at `io/approov/shapes/MainActivity.java`, line 88:
+Next we need to set up `ApproovService` so that it substitutes the placeholder value for the real API key on the `Api-Key` header. For this, only one further line of code needs to be changed at `io/approov/shapes/MainActivity.java`, line 87:
 
 ```
 // *** UNCOMMENT THE LINE BELOW FOR APPROOV SECRETS PROTECTION

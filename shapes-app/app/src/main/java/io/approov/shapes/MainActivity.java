@@ -26,9 +26,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-// *** UNCOMMENT THE TWO LINES BELOW FOR APPROOV ***
+// *** UNCOMMENT THE THREE LINES BELOW FOR APPROOV ***
 // import io.approov.service.grpc.ApproovChannelBuilder;
 // import io.approov.service.grpc.ApproovClientInterceptor;
+// import io.approov.service.grpc.ApproovService;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
@@ -82,7 +83,6 @@ public class MainActivity extends Activity {
         ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).build();
         // *** UNCOMMENT THE LINE BELOW FOR APPROOV (and comment the line above) ***
         // ManagedChannel channel = ApproovChannelBuilder.forAddress(host, port).build();
-
         // *** UNCOMMENT THE LINE BELOW FOR APPROOV SECRETS PROTECTION
         // ApproovService.addSubstitutionHeader("apiKeyHeaderName", null);
 
@@ -161,10 +161,12 @@ public class MainActivity extends Activity {
                     try {
                         // Get calling stub
                         ShapeGrpc.ShapeBlockingStub stub = ShapeGrpc.newBlockingStub(channel);
-                        APIKeyClientInterceptor apiKeyAddingClientInterceptor = new APIKeyClientInterceptor(apiKeyHeaderName, apiSecretKey);
+                        APIKeyClientInterceptor apiKeyAddingClientInterceptor =
+                                new APIKeyClientInterceptor(apiKeyHeaderName, apiSecretKey);
                         stub = stub.withInterceptors(apiKeyAddingClientInterceptor);
-                        // *** UNCOMMENT THE LINE BELOW FOR APPROOV (and comment the line above) ***
-                        // stub = stub.withInterceptors(apiKeyAddingClientInterceptor, new ApproovClientInterceptor(channel));
+                        // *** UNCOMMENT THE TWO LINES BELOW FOR APPROOV (and comment the line above) ***
+                        // stub = stub.withInterceptors(apiKeyAddingClientInterceptor,
+                        //        new ApproovClientInterceptor(channel));
 
                         // Make fetch shape call
                         ShapeReply response = stub.shape(ShapeRequest.newBuilder().build());
