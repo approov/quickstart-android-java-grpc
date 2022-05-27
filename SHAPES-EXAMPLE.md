@@ -113,6 +113,9 @@ In order for Approov to recognize the app as being valid it needs to be register
 ```
 approov registration -add app/build/outputs/apk/debug/app-debug.apk
 ```
+
+Note, some versions of Android Studio save the app in `app/build/intermediates/apk/debug/app-debug.apk`.
+
 Note, on Windows you need to substitute \ for / in the above command.
 
 > **IMPORTANT:** The registration takes up to 30 seconds to propagate across the Approov Cloud Infrastructure, therefore don't try to run the app again before this time as elapsed. During development of your app you can ensure it [always passes](https://approov.io/docs/latest/approov-usage-documentation/#adding-a-device-security-policy) so you do not have to register the APK each time you modify it.
@@ -180,11 +183,15 @@ Next we need to set up `ApproovService` so that it substitutes the placeholder v
 ApproovService.addSubstitutionHeader("apiKeyHeaderName", null);
 ```
 
-Build and run the app again to ensure that the `app-debug.apk` in the generated build outputs is up to date. You need to register the updated app with Approov. Change directory to the top level of the `shapes-app` project and then register the app with:
+Build and run the app again to ensure that the `app-debug.apk` in the generated build outputs is up to date. You need to register the updated app with Approov. Change directory to the quickstart's `shapes-app` folder and then register the app with Approov:
 
 ```
 approov registration -add app/build/outputs/apk/debug/app-debug.apk
 ```
+
+Note, some versions of Android Studio save the app in `app/build/intermediates/apk/debug/app-debug.apk`.
+
+Note, on Windows you need to substitute \ for / in the above command.
 
 Run the app again without making any changes to the app and press the `Get Shape` button. You should now see this (or another shape):
 
