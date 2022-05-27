@@ -108,7 +108,7 @@ Run the app again to ensure that the `app-debug.apk` in the generated build outp
 
 ## REGISTER YOUR APP WITH APPROOV
 
-In order for Approov to recognize the app as being valid it needs to be registered with the service. Change directory to the top level of the `shapes-app` project and then register the app with Approov:
+In order for Approov to recognize the app as being valid it needs to be registered with the service. Change directory to the quickstart's `shapes-app` folder and then register the app with Approov:
 
 ```
 approov registration -add app/build/outputs/apk/debug/app-debug.apk
@@ -138,7 +138,6 @@ If you still don't get a valid shape then there are some things you can try. Rem
 * Consider using an [Annotation Policy](https://approov.io/docs/latest/approov-usage-documentation/#annotation-policies) during initial development to directly see why the device is not being issued with a valid token.
 * Use `approov metrics` to see [Live Metrics](https://approov.io/docs/latest/approov-usage-documentation/#live-metrics) of the cause of failure.
 * You can use a debugger or emulator and get valid Approov tokens on a specific device by ensuring it [always passes](https://approov.io/docs/latest/approov-usage-documentation/#adding-a-device-security-policy). As a shortcut, when you are first setting up, you can add a [device security policy](https://approov.io/docs/latest/approov-usage-documentation/#adding-a-device-security-policy) using the `latest` shortcut as discussed so that the `device ID` doesn't need to be extracted from the logs or an Approov token.
-
 
 ## SHAPES APP WITH SECRETS PROTECTION
 

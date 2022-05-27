@@ -26,11 +26,11 @@ It is possible to pass an empty `config` string to indicate that no initializati
 Adds a header with an Approov token to the given headers and may also substitute header values to hold secure string secrets. If a binding header has been specified then its hash will be set if it is present. If it is not currently possible to fetch an Approov token then `ApproovException` is thrown.
     
 ```Java
-static void addApproov(String host, Metadata headers) throws ApproovException {
+static void addApproov(String host, Metadata headers) throws ApproovException
 ```
 
 ## SetProceedOnNetworkFail
-If the provided `proceed` value is `true` then this indicates that the networking should proceed anyway if it is not possible to obtain an Approov token due to a networking failure. If this is called then the backend API can receive calls without the expected Approov token header being added, or without header/query parameter substitutions being made. This should only ever be used if there is some particular reason, perhaps due to local network conditions, that you believe that traffic to the Approov cloud service will be particularly problematic.
+If the provided `proceed` value is `true` then this indicates that the networking should proceed anyway if it is not possible to obtain an Approov token due to a networking failure. If this is called then the backend API can receive calls without the expected Approov token header being added, or without header substitutions being made. This should only ever be used if there is some particular reason, perhaps due to local network conditions, that you believe that traffic to the Approov cloud service will be particularly problematic.
 
 ```Java
 void setProceedOnNetworkFail(boolean proceed)

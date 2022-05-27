@@ -1,4 +1,3 @@
-//
 // MIT License
 //
 // Copyright (c) 2016-present, Critical Blue Ltd.
@@ -35,7 +34,7 @@ public class APIKeyClientInterceptor implements ClientInterceptor {
     private final String apiKey;
 
     /**
-     * Constructs a new interceptor that adds Approov tokens.
+     * Constructs a new interceptor that adds an API key in a header.
      *
      * @param apiKeyHeaderName the header name to use for the API key
      * @param apiKey the API key
@@ -53,9 +52,7 @@ public class APIKeyClientInterceptor implements ClientInterceptor {
     }
 
     /**
-     * Call to a remote method where an Approov token is added to the metadata (i.e. headers) for channels to hosts that
-     * are configured to be Approov protected.
-     * Note that an invocation of start may cause an Approov token to be fetched over the network.
+     * Call to a remote method where an API key is added to the metadata (i.e. headers).
      */
     private final class APIKeyClientCall<ReqT, RespT> extends ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT> {
 
