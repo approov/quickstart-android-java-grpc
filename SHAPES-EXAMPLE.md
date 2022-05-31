@@ -98,7 +98,7 @@ Comment out line 166 and uncomment lines 168, 169 to add an `ApproovClientInterc
 
 The interceptor automatically fetches an Approov token and adds it as a header to any GRPC request made and may also substitute header values to hold secure string secrets.
 
-Note that this interceptor may cancel a request (with an `ApproovException` as the error) if it is unable to fetch an Approov token. If this is due to no or poor Internet connectivity then the exception is an `ApproovNetworkException`. In this case the user should be able to initiate a retry. During development a cancel may occur due to a misconfiguration, see [Token Fetch Errors](https://approov.io/docs/latest/approov-usage-documentation/#token-fetch-errors).
+Note that this interceptor may cancel a request (with an `ApproovException` as the error) if it is unable to fetch an Approov token. If this is due to no or poor Internet connectivity then the exception is an `ApproovNetworkException`. In this case the user should be able to initiate a retry. During development a cancel may occur due to a misconfiguration, see [Approov Fetch Status](https://approov.io/docs/latest/approov-usage-documentation/#approov-fetch-status).
 
 Finally, edit lines 172-174 of `MainActivity.java` to change to using the `approovShape` remote procedure call for which the server checks the Approov token (as well as the API key built into the app):
 
