@@ -38,7 +38,7 @@ approov secstrings -setEnabled
 
 The quickstart integration works by allowing you to replace the secret in your app with a placeholder value instead, and then the placeholder value is mapped to the actual secret value by the `ApproovClientInterceptor`, if the app passes Approov attestation. The shipped app code will only contain the placeholder values.
 
-If your app currently uses `your-secret` then replace it in your app with the value `your-placeholder`. Choose a suitable placeholder name to reflect the type of the secret. The placeholder value will be added to requests in the normal way, but you should be using the Approov enabled networking client to perfom the substitution.
+If your app currently uses `your-secret` then replace it in your app with the value `your-placeholder`. Choose a suitable placeholder name to reflect the type of the secret.
 
 You must inform Approov that it should substitute `your-placeholder` with `your-secret` in requests as follows:
 
@@ -59,7 +59,7 @@ With this in place, the `ApproovClientInterceptor` should replace the `your-plac
 
 You can see a [worked example](https://github.com/approov/quickstart-android-java-grpc/blob/main/SHAPES-EXAMPLE.md#shapes-app-with-secrets-protection) for the Shapes app.
 
-Since earlier released versions of the app may have already leaked the `your-secret`, you may wish to refresh the secret at some later point when any older version of the app is no longer in use. You can of course do this update over-the-air using Approov without any need to modify the app.
+Since earlier released versions of the app may have already leaked `your-secret`, you may wish to refresh the secret at some later point when any older version of the app is no longer in use. You can of course do this update over-the-air using Approov without any need to modify the app.
 
 ## REGISTERING APPS
 In order for Approov to recognize the app as being valid it needs to be registered with the service. Change the directory to the top level of your app project and then register the app with Approov:
