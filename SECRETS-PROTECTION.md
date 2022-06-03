@@ -36,7 +36,7 @@ approov secstrings -setEnabled
 
 > Note that this command requires an [admin role](https://approov.io/docs/latest/approov-usage-documentation/#account-access-roles).
 
-The quickstart integration works by allowing you to replace the secret in your app with a placeholder value instead, and then the placeholder value is mapped to the actual secret value by `addApproov`, if the app passes Approov attestation. The shipped app code will only contain the placeholder values.
+The quickstart integration works by allowing you to replace the secret in your app with a placeholder value instead, and then the placeholder value is mapped to the actual secret value by the `ApproovClientInterceptor`, if the app passes Approov attestation. The shipped app code will only contain the placeholder values.
 
 If your app currently uses `your-secret` then replace it in your app with the value `your-placeholder`. Choose a suitable placeholder name to reflect the type of the secret. The placeholder value will be added to requests in the normal way, but you should be using the Approov enabled networking client to perfom the substitution.
 
@@ -138,7 +138,7 @@ catch(ApproovException e) {
 
 to lookup a secure string with the given `key`, returning `null` if it is not defined. Note that you should never cache this value in your code. Approov does the caching for you in a secure way. You may define a new value for the `key` by passing a new value in `newDef` rather than `null`. An empty string `newDef` is used to delete the secure string.
 
-This method is also useful for providing runtime secrets protection when the values are not passed on headers. Secure strings set using this method may be substituted using subsequent `addApproov` calls. 
+This method is also useful for providing runtime secrets protection when the values are not passed on headers. Secure strings set using this method may be substituted by the `ApproovClientInterceptor`.
 
 ### Prefetching
 If you wish to reduce the latency associated with substituting the first secret, then make this call immediately after creating `ApproovService`:
