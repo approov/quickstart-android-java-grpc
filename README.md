@@ -77,7 +77,7 @@ import io.approov.service.grpc.ApproovChannelBuilder;
     ManagedChannel channel = ApproovChannelBuilder.forAddress(host, port).build();
 ```
 
-And Approov-enable remote procedure call stubs by adding an ApproovClientInterceptor which adds the `Approov-Token` header and may also substitute header values when using secrets protection:
+Add Approov enabled remote procedure call stubs by adding an `ApproovClientInterceptor` which adds the `Approov-Token` header and may also substitute header values when using secrets protection:
 
 ```Java
 import io.approov.service.grpc.ApproovClientInterceptor;
