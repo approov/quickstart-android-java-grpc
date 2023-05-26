@@ -63,7 +63,7 @@ You can see a [worked example](https://github.com/approov/quickstart-android-jav
 Since earlier released versions of the app may have already leaked `your-secret-value`, you may wish to refresh the secret at some later point when any older version of the app is no longer in use. You can of course do this update over-the-air using Approov without any need to modify the app.
 
 ## OBTAINING THE SECRET EXPLICITLY
-In some cases it might not be possible to automatically substitute a secret in a header or query parameter. This might be because the secret is used in other ways in your application.
+In some cases it might not be possible to automatically substitute a secret in a header. This might be because the secret is used in other ways in your application.
 
 In this case it is possible to make an explicit call at runtime to obtain the secret value, for apps passing attestation. Here is an example for using the required method in `ApproovService`:
 
