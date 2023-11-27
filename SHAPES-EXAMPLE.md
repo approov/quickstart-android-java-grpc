@@ -26,13 +26,13 @@ Click on the `Say Hello` button and you should see this:
     <img src="readme-images/hello-okay.png" width="256" title="Hello Okay">
 </p>
 
-This checks the connectivity by connecting to `grpc.shapes.approov.io:50051` and making a `hello` remote procedure call. Now press the `Get Shape` button and you will see this (or a different shape):
+This checks the connectivity by connecting to `grpc.shapes.approov.io:443` and making a `hello` remote procedure call. Now press the `Get Shape` button and you will see this (or a different shape):
 
 <p>
     <img src="readme-images/shapes-good.png" width="256" title="Shapes Good">
 </p>
 
-This contacts `grpc.shapes.approov.io:50051` to get the name of a random shape. This remote procedure call is protected with an API key that is built into the code, and therefore can be easily extracted from the app.
+This contacts `grpc.shapes.approov.io:443` to get the name of a random shape. This remote procedure call is protected with an API key that is built into the code, and therefore can be easily extracted from the app.
 
 The subsequent steps of this guide show you how to provide better protection, either using an Approov Token or by migrating the API key to become an Approov managed secret.
 
