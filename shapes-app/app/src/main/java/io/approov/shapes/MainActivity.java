@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     private ImageView statusImageView = null;
     private TextView statusTextView = null;
 
-    // API key for grpc.shapes.approov.io:50051
+    // API key for grpc.shapes.approov.io:443
     private String apiKeyHeaderName = "Api-Key";
     private String apiSecretKey = "yXClypapWNHIifHUWmBIyPFAm";
     // *** UNCOMMENT THE LINE BELOW FOR APPROOV SECRETS PROTECTION (and comment the line above) ***

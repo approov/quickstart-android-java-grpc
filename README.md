@@ -73,7 +73,7 @@ import io.approov.service.grpc.ApproovChannelBuilder;
 
     // open GRPC managed channel
     String host = "grpc.example.com";
-    int port = 50051;
+    int port = 443;
     ManagedChannel channel = ApproovChannelBuilder.forAddress(host, port).build();
 ```
 
