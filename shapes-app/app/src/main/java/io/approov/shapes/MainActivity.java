@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
 
         // open GRPC managed channel
         String host = "grpc.shapes.approov.io";
-        int port = 50051;
+        int port = 443;
         ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).build();
         // *** UNCOMMENT THE LINE BELOW FOR APPROOV (and comment the line above) ***
         // ManagedChannel channel = ApproovChannelBuilder.forAddress(host, port).build();
@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
 
                         // Make fetch shape call
                         ShapeReply response = stub.shape(ShapeRequest.newBuilder().build());
-                        // *** UNCOMMENT THIS LINE FOR APPROOV WITH API PROTECTION (and comment the line above) *** */
+                        // *** UNCOMMENT THIS LINE FOR APPROOV WITH API PROTECTION (and comment the line above) ***
                         // ShapeReply response = stub.approovShape(ApproovShapeRequest.newBuilder().build());
 
                         // Set result
