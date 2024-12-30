@@ -67,5 +67,5 @@ dependencies {
     implementation 'javax.annotation:javax.annotation-api:1.2'
 
     // *** UNCOMMENT THE LINE BELOW FOR APPROOV ***
-    // implementation 'com.github.approov:approov-service-android-java-grpc:main-SNAPSHOT'
+    // implementation("io.approov:service.grpc:3.3.0")
 }

@@ -20,7 +20,5 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        // *** UNCOMMENT THE LINE BELOW FOR APPROOV ***
-        // maven { url 'https://jitpack.io' }
     }
 }

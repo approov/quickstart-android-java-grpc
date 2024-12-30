@@ -38,27 +38,19 @@ The subsequent steps of this guide show you how to provide better protection, ei
 
 ## ADD THE APPROOV DEPENDENCY
 
-The Approov integration is available via [`jitpack`](https://jitpack.io). This allows inclusion into the project by simply specifying a dependency in the `gradle` files for the app. Firstly, `jitpack` needs to be added to the `repositories` section in the `build.gradle` file at the top level of the project by uncommenting line 24:
+The Approov integration is available via [`maven`](https://mvnrepository.com/repos/central). This allows inclusion into the project by simply specifying a dependency in the `gradle` files for the app.
 
-```
-maven { url 'https://jitpack.io' }
-```
-
-![Project Build Gradle](readme-images/root-gradle.png)
-
-The `approov-service-android-java-grpc` dependency needs to be added to the `app/build.gradle` file at the app level. Uncomment line 66 to do this:
+The `approov-service-android-java-grpc` dependency needs to be added to the `app/build.gradle` file at the app level. Uncomment the following line to do this:
 
 ![App Build Gradle](readme-images/app-gradle.png)
 
-Note that in this case the dependency has been added with the tag `main-SNAPSHOT`. However, for your projects we recommend you add a dependency to a specific version:
-
 ```
-implementation 'com.github.approov:approov-service-android-java-grpc:3.2.2'
+implementation("io.approov:service.grpc:3.3.0")
 ```
 
 Make sure you do a Gradle sync (by selecting `Sync Now` in the banner at the top of the modified `.gradle` file) after making these changes.
 
-Note that `approov-service-android-java-grpc` is actually an open source wrapper layer that allows you to use Approov easily with `GRPC-Java`. `approov-service-android-java-grpc` has a further dependency to the closed source [Approov SDK](https://github.com/approov/approov-android-sdk) itself.
+Note that `approov-service-android-java-grpc` is actually an open source wrapper layer that allows you to use Approov easily with `GRPC-Java`. `approov-service-android-java-grpc` has a further dependency to the closed source [Approov SDK](https://central.sonatype.com/artifact/io.approov/approov-android-sdk) itself.
 
 ## ENSURE THE SHAPES API IS ADDED
 
