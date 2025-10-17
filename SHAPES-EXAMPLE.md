@@ -45,7 +45,7 @@ The `approov-service-android-java-grpc` dependency needs to be added to the `app
 ![App Build Gradle](readme-images/app-gradle.png)
 
 ```
-implementation("io.approov:service.grpc:3.5.0")
+implementation("io.approov:service.grpc:3.5.1")
 ```
 
 Make sure you do a Gradle sync (by selecting `Sync Now` in the banner at the top of the modified `.gradle` file) after making these changes.
