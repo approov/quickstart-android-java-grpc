@@ -8,13 +8,13 @@ To follow this guide you should have received an onboarding email for a trial or
 
 ## ADDING APPROOV SERVICE DEPENDENCY
 The Approov integration is available via [`maven`](https://mvnrepository.com/repos/central). This allows inclusion into the project by simply specifying a dependency in the `gradle` files for the app.
-The `Maven` repository is already present in the gradle.build file so the only import you need to make is the actual service layer itself:
+The `mavenCentral()` repository is already present in the project-level `build.gradle` file, so the only import you need to make is the actual service layer itself:
 
 ```
 implementation("io.approov:service.grpc:3.5.3")
 ```
 
-Make sure you do a Gradle sync (by selecting `Sync Now` in the banner at the top of the modified `.gradle` file) after making these changes.
+Make sure you do a Gradle sync (by selecting `Sync Now` in the banner at the top of the app-level `build.gradle` file) after making these changes.
 
 This package is actually an open source wrapper layer that allows you to use Approov easily with `GRPC-Java`. It has a further dependency to the closed source [Approov SDK](https://github.com/approov/approov-android-sdk).
 
